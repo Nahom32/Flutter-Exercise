@@ -1,4 +1,5 @@
 import 'package:firstproject/recipe.dart';
+import 'package:firstproject/recipe_detail_view.dart';
 import 'package:firstproject/recipe_repo.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ Widget buildRecipeCard(BuildContext context, Recipe recipe) {
     onDoubleTap: () {
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return Text("Details Page");
+          return RecipeDetail(recipe: recipe);
         },
       ));
     },
