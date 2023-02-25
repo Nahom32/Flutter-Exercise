@@ -1,5 +1,5 @@
 import 'package:firstproject/recipe.dart';
-import 'package:firstproject/recipeRepo.dart';
+import 'package:firstproject/recipe_repo.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,15 +14,14 @@ class RecipeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData();
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        
-        primarySwatch: Colors.blue,
-      ),
-      home: RecipeView()
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: RecipeView());
   }
 }
+
 class RecipeView extends StatefulWidget {
   const RecipeView({super.key});
 
@@ -33,25 +32,35 @@ class RecipeView extends StatefulWidget {
 class _RecipeViewState extends State<RecipeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
-      title: Title(color: Colors.blue, child: const Text("Food Recipes"))
-    ),
-    body: ListView.builder(itemCount: dataHolder.length,
-    itemBuilder: (context, index) {
-      return buildRecipeCard(dataHolder[index]);
-
-    },
-    )
-    );
+    return Scaffold(
+        appBar: AppBar(
+            title:
+                Title(color: Colors.blue, child: const Text("Food Recipes"))),
+        body: ListView.builder(
+          itemCount: dataHolder.length,
+          itemBuilder: (context, index) {
+            return buildRecipeCard(context, dataHolder[index]);
+          },
+        ));
   }
 }
 
-Widget buildRecipeCard(Recipe recipe){
-  return Card(
-    child: Column(children: [
-      Image(image: AssetImage(recipe.imageURL)),
-      Text(recipe.label),
-    ],)
+Widget buildRecipeCard(BuildContext context, Recipe recipe) {
+  return GestureDetector(
+    child: Card(
+        elevation: 2,
+        child: Column(
+          children: [
+            Image(image: AssetImage(recipe.imageURL)),
+            Text(recipe.label),
+          ],
+        )),
+    onDoubleTap: () {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Text("Details Page");
+        },
+      ));
+    },
   );
 }
-
